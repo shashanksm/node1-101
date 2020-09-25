@@ -1,20 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
-
+const adminRoutes = require('./routes/adminRoutes'); 
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:false}));
 
+app.use(express.static(path.join(__dirname,'public')));
 
-app.use('')
-
-app.use('/users', (request, response, next)=>{
-    console.log('in users route');
-    response.send('<h1>Users</h1>');
-});
-
+app.use('/admin', adminRoutes);
 
 app.use('/', (request, response, next)=>{
     console.log('in root route');
@@ -22,3 +18,4 @@ app.use('/', (request, response, next)=>{
 });
 
 app.listen(3000);
+
